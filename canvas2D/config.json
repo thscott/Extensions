@@ -45,8 +45,8 @@
                     "src/babylon.d.ts"
                 ],
                 "shaderFiles": [
-                    "/src/shaders/**.fx",
-                    "!/src/shaders/**.js.fx"
+                    "src/shaders/**.fx",
+                    "!src/shaders/**.js.fx"
                 ],
                 "output": "babylon.canvas2d.js"
             }

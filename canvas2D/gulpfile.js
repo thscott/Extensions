@@ -4,6 +4,8 @@ var typescript = require("gulp-typescript");
 var sourcemaps = require("gulp-sourcemaps");
 var srcToVariable = require("gulp-content-to-variable");
 var appendSrcToVariable = require("./gulp-appendSrcToVariable");
+var addDtsExport = require("./gulp-addDtsExport");
+var addModuleExports = require("./gulp-addModuleExports");
 var merge2 = require("merge2");
 var concat = require("gulp-concat");
 var rename = require("gulp-rename");
@@ -165,6 +167,8 @@ var buildExternalLibrary = function (library, settings, watch) {
     else {
         var code = merge2([tsProcess.js, shader, includeShader])
             .pipe(concat(library.output))
+            // .pipe(addModuleExports(settings.build.moduleDeclaration, true, settings.build.extendsRoot))
+            .pipe(addModuleExports("babylonjs-canvas2d", true, true))
             .pipe(gulp.dest(outputDirectory))
             .pipe(cleants())
             .pipe(replace(extendsSearchRegex, ""))
@@ -179,8 +183,15 @@ var buildExternalLibrary = function (library, settings, watch) {
             .pipe(replace(referenceSearchRegex, ""))
             .pipe(rename({ extname: ".d.ts" }))
             .pipe(gulp.dest(outputDirectory));
+        var dts_module = tsProcess.dts
+            .pipe(concat(library.output))
+            .pipe(replace(referenceSearchRegex, ""))
+            .pipe(rename({ extname: ".module.d.ts" }))
+            .pipe(addDtsExport("babylonjs-canvas2d", "babylonjs-canvas2d", true, true))
+            .pipe(replace("BABYLON", "BABYLON.Canvas2D"))
+            .pipe(gulp.dest(outputDirectory));
 
-        var waitAll = merge2([dev, code, css, dts]);
+        var waitAll = merge2([dev, code, css, dts, dts_module]);
 
         if (library.webpack) {
             return waitAll.on('end', function () {

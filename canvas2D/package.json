@@ -1,6 +1,8 @@
 {
-  "name": "babyloncanva2djs",
-  "main": "",
+  "name": "babylonjs-canvas2d",
+  "main": "dist/preview release/babylon.canvas2d.js",
+  "version": "3.0.0",
+    
   "license": "(Apache-2.0)",
   "devDependencies": {
     "gulp": "^3.8.11",
@@ -30,5 +32,15 @@
     "imports-loader": "^0.7.0",
     "gulp-zip": "~3.2.0",
     "del": "2.2.2"
-  }
+  },
+  "peerDependencies": {
+    "babylonjs": ">=3.1.0"
+  },
+  "typings": "dist/preview release/babylon.canvas2d.module.d.ts",
+  "files": [
+    "dist/preview release/babylon.canvas2d.d.ts",
+    "dist/preview release/babylon.canvas2d.module.d.ts",
+    "dist/preview release/babylon.canvas2d.js",
+    "dist/preview release/babylon.canvas2d.min.js"
+  ]
 }
