@@ -1053,7 +1053,7 @@
                 return this._modelKey;
             }
 
-            let modelKey = `Class:${Tools.getClassName(this)};`;
+            let modelKey = `Class:${Tools.GetClassName(this)};`;
             let propDic = this.propDic;
             propDic.forEach((k, v) => {
                 if (v.kind === Prim2DPropInfo.PROPKIND_MODEL) {
@@ -1072,7 +1072,7 @@
                     let value = "[null]";
                     if (propVal != null) {
                         if (v.typeLevelCompare) {
-                            value = Tools.getClassName(propVal);
+                            value = Tools.GetClassName(propVal);
                         } else {
                             // String Dictionaries' content are too complex, with use a Random GUID to make the model unique
                             if (propVal instanceof StringDictionary) {

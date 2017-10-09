@@ -607,13 +607,13 @@
                 let curVisible = this.isVisible;
                 this.isVisible = true;
                 // We manually trigger refreshInstanceData for the only sake of evaluating each instance property size and offset in the instance data, this can only be made at runtime. Once it's done we have all the information to create the instance data buffer.
-                //console.log("Build Prop Layout for " + Tools.getClassName(this._instanceDataParts[0]));
+                //console.log("Build Prop Layout for " + Tools.GetClassName(this._instanceDataParts[0]));
                 var joinCat = ";" + cat.join(";") + ";";
                 pd._partJoinedUsedCategories = joinCat;
                 InstanceClassInfo._CurCategories = joinCat;
                 let obj = this.beforeRefreshForLayoutConstruction(dataPart);
                 if (!this.refreshInstanceDataPart(dataPart)) {
-                    console.log(`Layout construction for ${Tools.getClassName(this._instanceDataParts[0])} failed because refresh returned false`);
+                    console.log(`Layout construction for ${Tools.GetClassName(this._instanceDataParts[0])} failed because refresh returned false`);
                 }
                 this.afterRefreshForLayoutConstruction(dataPart, obj);
                 this.isVisible = curVisible;
@@ -625,7 +625,7 @@
                             pd._zBiasOffset = v.instanceOffset.get(joinCat);
                         }
                         if (!v.size) {
-                            console.log(`ERROR: Couldn't detect the size of the Property ${v.attributeName} from type ${Tools.getClassName(cti.type)}. Property is ignored.`);
+                            console.log(`ERROR: Couldn't detect the size of the Property ${v.attributeName} from type ${Tools.GetClassName(cti.type)}. Property is ignored.`);
                         } else {
                             size += v.size;
                         }

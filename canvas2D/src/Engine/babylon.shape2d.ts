@@ -181,9 +181,9 @@
             this._isTransparent = (this._border && this._border.isTransparent()) || (this._fill && this._fill.isTransparent()) || (this.actualOpacity < 1);
             if (this._isTransparent !== this._oldTransparent) {
                 this._oldTransparent = this._isTransparent;
-                if(!this._isTransparent && this._transparentPrimitiveInfo){
-                    this.renderGroup._renderableData.removeTransparentPrimitiveInfo(this._transparentPrimitiveInfo);
-                    this._transparentPrimitiveInfo = null;
+                if(!this._isTransparent && (<any>this)._transparentPrimitiveInfo){
+                    this.renderGroup._renderableData.removeTransparentPrimitiveInfo((<any>this)._transparentPrimitiveInfo);
+                    (<any>this)._transparentPrimitiveInfo = null;
                 }
                 this._updateRenderMode();
             }
