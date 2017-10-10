@@ -3255,13 +3255,13 @@ var BABYLON;
                 this._clusterDirty = true;
             }
             // Should we update the WireFrame2D Primitive that displays the clusters
-            if (this.debugRenderClusters && this._clusterDirty) {
+            if (this.debugRenderClusters && (this._clusterDirty || !this._ClusterRenderPrim)) {
                 this._updateClusterDisplay(cw, ch);
             }
             if (this._ClusterRenderPrim) {
                 this._ClusterRenderPrim.levelVisible = this.debugRenderClusters;
             }
-            var updateStats = this.debugStats && (this._dirtyActors.count > 0 || this._clusterDirty);
+            var updateStats = this.debugStats; //myChange && (this._dirtyActors.count > 0 || this._clusterDirty);
             this._debugUpdateTime.beginMonitoring();
             // If the Cluster Size changed: rebuild it and add all actors. Otherwise add only new (dirty) actors
             if (this._clusterDirty) {
@@ -3363,6 +3363,7 @@ var BABYLON;
         BasicPrimitiveCollisionManager.prototype._rebuildAllActors = function () {
             var _this = this;
             this._actors.forEach(function (k, ai) {
+                ai.presentInClusters.clear(); //myChange
                 _this._processActor(ai);
             });
         };
@@ -3437,6 +3438,7 @@ var BABYLON;
                     var ci = actor.presentInClusters.getOrAddWithFactory(k, function (k) {
                         var nci = _this._getCluster(cx, cy);
                         nci.actors.add(actor.prim.uid, actor);
+                        _this._maxActorByCluster--; //myChange decay max actor so that it will eventually decrease to the correct value, without the need for checking each update
                         _this._maxActorByCluster = Math.max(_this._maxActorByCluster, nci.actors.count);
                         ++opCount;
                         ++totalClusters;
@@ -15031,7 +15033,7 @@ var BABYLON;
             _this._useBilinearFiltering = (settings.useBilinearFiltering != null) ? settings.useBilinearFiltering : null;
             _this._fontBilinearFiltering = false;
             // Text rendering must always be aligned to the target's pixel to ensure a good quality
-            _this.alignToPixel = true;
+            //this.alignToPixel = true; //myChange, need to disable for smooth text movement
             _this.textAlignmentH = (settings.textAlignmentH == null) ? Text2D_1.AlignLeft : settings.textAlignmentH;
             _this.textAlignmentV = (settings.textAlignmentV == null) ? Text2D_1.AlignTop : settings.textAlignmentV;
             _this.textAlignment = (settings.textAlignment == null) ? "" : settings.textAlignment;

@@ -291,7 +291,7 @@
             }
 
             // Should we update the WireFrame2D Primitive that displays the clusters
-            if (this.debugRenderClusters && this._clusterDirty) {
+            if (this.debugRenderClusters && (this._clusterDirty || !this._ClusterRenderPrim)) { //myChange
                 this._updateClusterDisplay(cw, ch);
             }
             if (this._ClusterRenderPrim) {
@@ -299,7 +299,7 @@
             }
 
 
-            let updateStats = this.debugStats && (this._dirtyActors.count > 0 || this._clusterDirty);
+            let updateStats = this.debugStats; //myChange && (this._dirtyActors.count > 0 || this._clusterDirty);
 
             this._debugUpdateTime.beginMonitoring();
 
@@ -405,6 +405,7 @@
 
         private _rebuildAllActors() {
             this._actors.forEach((k, ai) => {
+                ai.presentInClusters.clear(); //myChange
                 this._processActor(ai);
             });
         }
@@ -485,6 +486,7 @@
                         (k) => {
                             let nci = this._getCluster(cx, cy);
                             nci.actors.add(actor.prim.uid, actor);
+                            this._maxActorByCluster--; //myChange decay max actor so that it will eventually decrease to the correct value, without the need for checking each update
                             this._maxActorByCluster = Math.max(this._maxActorByCluster, nci.actors.count);
                             ++opCount;
                             ++totalClusters;

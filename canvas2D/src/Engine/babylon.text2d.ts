@@ -533,7 +533,7 @@
             this._fontBilinearFiltering = false;
 
             // Text rendering must always be aligned to the target's pixel to ensure a good quality
-            this.alignToPixel = true;
+            //this.alignToPixel = true; //myChange, need to disable for smooth text movement
 
             this.textAlignmentH      = (settings.textAlignmentH==null) ? Text2D.AlignLeft : settings.textAlignmentH;
             this.textAlignmentV      = (settings.textAlignmentV==null) ? Text2D.AlignTop : settings.textAlignmentV;
