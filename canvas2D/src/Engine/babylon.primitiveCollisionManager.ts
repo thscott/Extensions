@@ -286,7 +286,10 @@
                     --cw;
                     --ch;
                 }
-                console.log(`Change cluster size to ${cw}:${ch}, max actor ${this._maxActorByCluster}`);
+
+                if (this.debugRenderClusters) { //myChange
+                    console.log(`Change cluster size to ${cw}:${ch}, max actor ${this._maxActorByCluster}` );
+                }
                 this._clusterDirty = true;
             }
 
